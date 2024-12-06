@@ -1,0 +1,48 @@
+{
+  "name": "arraypress/geocoding",
+  "description": "A PHP library for integrating with the Maps.co Geocoding API in WordPress, providing both forward and reverse geocoding capabilities with WordPress transient caching.",
+  "type": "library",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/arraypress/geocoding/",
+  "authors": [
+    {
+      "name": "David Sherlock",
+      "homepage": "https://arraypress.com/"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ArrayPress\\Geocoding\\": "src/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "support": {
+    "issues": "https://github.com/arraypress/geocoding/issues",
+    "source": "https://github.com/arraypress/geocoding"
+  },
+  "keywords": [
+    "geocoding",
+    "reverse-geocoding",
+    "maps",
+    "maps.co",
+    "location",
+    "coordinates",
+    "address",
+    "latitude",
+    "longitude",
+    "wordpress",
+    "geolocation",
+    "address-lookup",
+    "coordinates-lookup",
+    "location-data",
+    "openstreetmap"
+  ]
+}
