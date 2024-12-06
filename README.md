@@ -22,13 +22,13 @@ composer require arraypress/geocoding
 use ArrayPress\Geocoding\Client;
 
 // Initialize with your API key
-$client = new Client('your-api-key-here');
+$client = new Client( 'your-api-key-here' );
 
 // Forward geocoding (address to coordinates)
-$location = $client->geocode('1600 Pennsylvania Avenue NW, Washington, DC');
+$location = $client->geocode( '1600 Pennsylvania Avenue NW, Washington, DC' );
 
 // Reverse geocoding (coordinates to address)
-$location = $client->reverse_geocode(38.8977, -77.0365);
+$location = $client->reverse_geocode( 38.8977, -77.0365 );
 ```
 
 ## Available Methods
@@ -45,14 +45,14 @@ $client = new Client(
 );
 
 // Forward geocoding
-$location = $client->geocode('1600 Pennsylvania Avenue NW, Washington, DC');
+$location = $client->geocode( '1600 Pennsylvania Avenue NW, Washington, DC' );
 
 // Reverse geocoding
-$location = $client->reverse_geocode(38.8977, -77.0365);
+$location = $client->reverse_geocode( 38.8977, -77.0365 );
 
 // Cache management
-$client->clear_cache('address_key');  // Clear specific cache
-$client->clear_cache();              // Clear all cached geocoding data
+$client->clear_cache( 'address_key' );  // Clear specific cache
+$client->clear_cache();                 // Clear all cached geocoding data
 ```
 
 ### Location Methods
@@ -173,7 +173,7 @@ The library uses WordPress's `WP_Error` for error handling:
 ```php
 $location = $client->geocode('invalid address');
 
-if (is_wp_error($location)) {
+if ( is_wp_error( $location ) ) {
     echo $location->get_error_message();
     // Output: "No results found for the provided address"
 }
