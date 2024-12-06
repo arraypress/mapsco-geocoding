@@ -51,6 +51,25 @@ class Location {
 	}
 
 	/**
+	 * Get coordinates as an array
+	 *
+	 * @return array|null Returns array with latitude and longitude or null if not available
+	 */
+	public function get_coordinates(): ?array {
+		$lat = $this->get_latitude();
+		$lon = $this->get_longitude();
+
+		if ( $lat === null || $lon === null ) {
+			return null;
+		}
+
+		return [
+			'latitude'  => $lat,
+			'longitude' => $lon
+		];
+	}
+
+	/**
 	 * Get the formatted display name
 	 *
 	 * @return string|null
@@ -155,7 +174,44 @@ class Location {
 	 * @return array|null
 	 */
 	public function get_address(): ?array {
-		return $this->data['address'] ?? null;
+		if ( isset( $this->data['address'] ) ) {
+			return $this->data['address'];
+		}
+
+		// For forward geocoding, try to parse from display_name
+		if ( isset( $this->data['display_name'] ) ) {
+			$parts   = explode( ', ', $this->data['display_name'] );
+			$address = [];
+
+			// Last part is always country
+			if ( count( $parts ) > 0 ) {
+				$address['country'] = array_pop( $parts );
+			}
+
+			// Second to last is usually postal code
+			if ( count( $parts ) > 0 ) {
+				$address['postcode'] = array_pop( $parts );
+			}
+
+			// Third to last is usually state/region
+			if ( count( $parts ) > 0 ) {
+				$address['state'] = array_pop( $parts );
+			}
+
+			// Fourth to last is usually city
+			if ( count( $parts ) > 0 ) {
+				$address['city'] = array_pop( $parts );
+			}
+
+			// First part usually contains the street info
+			if ( count( $parts ) > 0 ) {
+				$address['road'] = implode( ', ', $parts );
+			}
+
+			return $address;
+		}
+
+		return null;
 	}
 
 	/**
@@ -166,7 +222,9 @@ class Location {
 	 * @return string|null
 	 */
 	public function get_address_component( string $component ): ?string {
-		return $this->data['address'][ $component ] ?? null;
+		$address = $this->get_address();
+
+		return $address[ $component ] ?? null;
 	}
 
 	/**
