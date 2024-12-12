@@ -12,7 +12,7 @@
 
 declare( strict_types=1 );
 
-namespace ArrayPress\Geocoding;
+namespace ArrayPress\Geocoding\Response;
 
 class Location {
 

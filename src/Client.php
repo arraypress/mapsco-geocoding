@@ -33,6 +33,7 @@ declare( strict_types=1 );
 
 namespace ArrayPress\Geocoding;
 
+use ArrayPress\Geocoding\Response\Location;
 use WP_Error;
 
 class Client {
