@@ -1,5 +1,6 @@
 {
   "name": "arraypress/geocoding",
+  "version": "1.0.0",
   "description": "A PHP library for integrating with the Maps.co Geocoding API in WordPress, providing both forward and reverse geocoding capabilities with WordPress transient caching.",
   "type": "library",
   "license": "GPL-2.0-or-later",
