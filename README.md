@@ -38,17 +38,17 @@ $location = $client->reverse_geocode( 38.8977, -77.0365 );
 ```php
 // Initialize client with options
 $client = new Client(
-    'your-api-key-here',  // API key
-    'json',              // Response format (optional, default: 'json')
-    true,               // Enable caching (optional, default: true)
-    604800             // Cache duration in seconds (optional, default: 1 week)
+	'your-api-key-here',  // API key
+	'json',              // Response format (optional, default: 'json')
+	true,               // Enable caching (optional, default: true)
+	604800             // Cache duration in seconds (optional, default: 1 week)
 );
 
 // Forward geocoding
 $location = $client->geocode( '1600 Pennsylvania Avenue NW, Washington, DC' );
 
 // Reverse geocoding
-$location = $client->reverse_geocode( 38.8977, -77.0365 );
+$location = $client->reverse_geocode( 38.8977, - 77.0365 );
 
 // Cache management
 $client->clear_cache( 'address_key' );  // Clear specific cache
@@ -68,22 +68,22 @@ $display_name = $location->get_display_name();
 
 // Get address components
 $house_number = $location->get_house_number();  // Returns: "1600"
-$street = $location->get_street();             // Returns: "Pennsylvania Avenue Northwest"
-$city = $location->get_city();                // Returns: "Washington"
-$state = $location->get_state();              // Returns: "District of Columbia"
-$postcode = $location->get_postcode();        // Returns: "20500"
-$country = $location->get_country();          // Returns: "United States"
+$street       = $location->get_street();             // Returns: "Pennsylvania Avenue Northwest"
+$city         = $location->get_city();                // Returns: "Washington"
+$state        = $location->get_state();              // Returns: "District of Columbia"
+$postcode     = $location->get_postcode();        // Returns: "20500"
+$country      = $location->get_country();          // Returns: "United States"
 $country_code = $location->get_country_code(); // Returns: "US"
-$borough = $location->get_borough();          // Returns: "Ward 2"
+$borough      = $location->get_borough();          // Returns: "Ward 2"
 
 // Get OpenStreetMap data
 $place_id = $location->get_place_id();   // Returns: OSM place ID
 $osm_type = $location->get_osm_type();   // Returns: "way"
-$osm_id = $location->get_osm_id();       // Returns: OSM ID
+$osm_id   = $location->get_osm_id();       // Returns: OSM ID
 
 // Get location type information
 $class = $location->get_class();  // Returns: e.g., "office"
-$type = $location->get_type();    // Returns: e.g., "government"
+$type  = $location->get_type();    // Returns: e.g., "government"
 
 // Get importance ranking
 $importance = $location->get_importance();  // Returns: float value
@@ -92,14 +92,14 @@ $importance = $location->get_importance();  // Returns: float value
 $license = $location->get_license();  // Returns: license text
 
 // Get bounding box
-if ($location->has_bounding_box()) {
-    $bbox = $location->get_bounding_box();
-    // Returns: [
-    //     'min_lat' => float,
-    //     'max_lat' => float,
-    //     'min_lon' => float,
-    //     'max_lon' => float
-    // ]
+if ( $location->has_bounding_box() ) {
+	$bbox = $location->get_bounding_box();
+	// Returns: [
+	//     'min_lat' => float,
+	//     'max_lat' => float,
+	//     'min_lon' => float,
+	//     'max_lon' => float
+	// ]
 }
 ```
 
@@ -171,7 +171,7 @@ $raw_data = $location->get_raw_data();
 The library uses WordPress's `WP_Error` for error handling:
 
 ```php
-$location = $client->geocode('invalid address');
+$location = $client->geocode( 'invalid address' );
 
 if ( is_wp_error( $location ) ) {
     echo $location->get_error_message();
