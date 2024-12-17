@@ -7,7 +7,7 @@ A WordPress library for Maps.co Geocoding API integration with smart caching and
 Install via Composer:
 
 ```bash
-composer require arraypress/geocoding
+composer require arraypress/mapsco-geocoding
 ```
 
 ## Requirements
