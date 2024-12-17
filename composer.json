@@ -1,10 +1,10 @@
 {
-  "name": "arraypress/geocoding",
+  "name": "arraypress/mapsco-geocoding",
   "version": "1.0.0",
   "description": "A PHP library for integrating with the Maps.co Geocoding API in WordPress, providing both forward and reverse geocoding capabilities with WordPress transient caching.",
   "type": "library",
   "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/arraypress/geocoding/",
+  "homepage": "https://github.com/arraypress/mapsco-geocoding/",
   "authors": [
     {
       "name": "David Sherlock",
@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "ArrayPress\\Geocoding\\": "src/"
+      "ArrayPress\\MapsCo\\Geocoding\\": "src/"
     }
   },
   "config": {
@@ -25,8 +25,8 @@
   },
   "minimum-stability": "stable",
   "support": {
-    "issues": "https://github.com/arraypress/geocoding/issues",
-    "source": "https://github.com/arraypress/geocoding"
+    "issues": "https://github.com/arraypress/mapsco-geocoding/issues",
+    "source": "https://github.com/arraypress/mapsco-geocoding"
   },
   "keywords": [
     "geocoding",

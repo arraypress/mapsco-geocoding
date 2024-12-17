@@ -12,9 +12,9 @@
 
 declare( strict_types=1 );
 
-namespace ArrayPress\Geocoding\Response;
+namespace ArrayPress\MapsCo\Geocoding;
 
-class Location {
+class Response {
 
 	/**
 	 * Raw location data from the API

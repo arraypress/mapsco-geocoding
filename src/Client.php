@@ -31,9 +31,8 @@
 
 declare( strict_types=1 );
 
-namespace ArrayPress\Geocoding;
+namespace ArrayPress\MapsCo\Geocoding;
 
-use ArrayPress\Geocoding\Response\Location;
 use WP_Error;
 
 class Client {
@@ -98,7 +97,7 @@ class Client {
 	 *
 	 * @param string $address Address to geocode
 	 *
-	 * @return Location|WP_Error Location object or WP_Error on failure
+	 * @return Response|WP_Error Location object or WP_Error on failure
 	 */
 	public function geocode( string $address ) {
 		if ( empty( $address ) ) {
@@ -114,7 +113,7 @@ class Client {
 		if ( $this->enable_cache ) {
 			$cached_data = get_transient( $cache_key );
 			if ( false !== $cached_data ) {
-				return new Location( $cached_data );
+				return new Response( $cached_data );
 			}
 		}
 
@@ -145,7 +144,7 @@ class Client {
 			set_transient( $cache_key, $data, $this->cache_expiration );
 		}
 
-		return new Location( $data );
+		return new Response( $data );
 	}
 
 	/**
@@ -154,7 +153,7 @@ class Client {
 	 * @param float $latitude  Latitude coordinate
 	 * @param float $longitude Longitude coordinate
 	 *
-	 * @return Location|WP_Error Location object or WP_Error on failure
+	 * @return Response|WP_Error Location object or WP_Error on failure
 	 */
 	public function reverse_geocode( float $latitude, float $longitude ) {
 		if ( ! $this->is_valid_coordinates( $latitude, $longitude ) ) {
@@ -170,7 +169,7 @@ class Client {
 		if ( $this->enable_cache ) {
 			$cached_data = get_transient( $cache_key );
 			if ( false !== $cached_data ) {
-				return new Location( $cached_data );
+				return new Response( $cached_data );
 			}
 		}
 
@@ -188,7 +187,7 @@ class Client {
 			set_transient( $cache_key, $response, $this->cache_expiration );
 		}
 
-		return new Location( $response );
+		return new Response( $response );
 	}
 
 	/**

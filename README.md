@@ -1,4 +1,4 @@
-# Geocoding Library for WordPress
+# Maps.co API Geocoding Library for WordPress
 
 A WordPress library for Maps.co Geocoding API integration with smart caching and comprehensive location data handling.
 
@@ -19,7 +19,7 @@ composer require arraypress/geocoding
 ## Basic Usage
 
 ```php
-use ArrayPress\Geocoding\Client;
+use ArrayPress\MapsCo\Geocoding\Client;
 
 // Initialize with your API key
 $client = new Client( 'your-api-key-here' );
