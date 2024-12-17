@@ -22,7 +22,7 @@
  * $location = $client->reverse_geocode(38.8977, -77.0365);
  * ```
  *
- * @package     ArrayPress/Geocoding
+ * @package     ArrayPress\MapsCo\Geocoding
  * @copyright   Copyright (c) 2024, ArrayPress Limited
  * @license     GPL2+
  * @version     1.0.0

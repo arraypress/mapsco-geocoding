@@ -4,10 +4,11 @@
  *
  * Represents a geocoded location with various properties.
  *
- * @package     ArrayPress/Geocoding
+ * @package     ArrayPress\MapsCo\Geocoding
  * @copyright   Copyright (c) 2024, ArrayPress Limited
  * @license     GPL2+
- * @since       1.0.0
+ * @version     1.0.0
+ * @author      David Sherlock
  */
 
 declare( strict_types=1 );
