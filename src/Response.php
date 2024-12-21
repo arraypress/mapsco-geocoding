@@ -259,6 +259,62 @@ class Response {
 	}
 
 	/**
+	 * Get the bounding box dimensions in kilometers
+	 *
+	 * @return array|null Width and height in kilometers, or null if bounding box is not available
+	 */
+	public function get_bounding_box_dimensions(): ?array {
+		$box = $this->get_bounding_box();
+		if ( ! $box ) {
+			return null;
+		}
+
+		$earthRadiusKm = 6371;
+
+		$latDistance = deg2rad( $box['max_lat'] - $box['min_lat'] );
+		$lonDistance = deg2rad( $box['max_lon'] - $box['min_lon'] );
+		$latCenter   = deg2rad( ( $box['max_lat'] + $box['min_lat'] ) / 2 );
+
+		$widthKm  = $earthRadiusKm * $lonDistance * cos( $latCenter );
+		$heightKm = $earthRadiusKm * $latDistance;
+
+		return [
+			'width_km'  => abs( $widthKm ),
+			'height_km' => abs( $heightKm ),
+		];
+	}
+
+	/**
+	 * Get the approximate radius of the bounding box in kilometers
+	 *
+	 * @return float|null Radius in kilometers, or null if bounding box is not available
+	 */
+	public function get_bounding_box_radius(): ?float {
+		$box = $this->get_bounding_box();
+		if ( ! $box ) {
+			return null;
+		}
+
+		$earthRadiusKm = 6371;
+
+		$latCenter = ( $box['max_lat'] + $box['min_lat'] ) / 2;
+		$lonCenter = ( $box['max_lon'] + $box['min_lon'] ) / 2;
+
+		$cornerLat = $box['max_lat'];
+		$cornerLon = $box['max_lon'];
+
+		$latDistance = deg2rad( $cornerLat - $latCenter );
+		$lonDistance = deg2rad( $cornerLon - $lonCenter );
+
+		$a = sin( $latDistance / 2 ) ** 2 +
+		     cos( deg2rad( $latCenter ) ) * cos( deg2rad( $cornerLat ) ) * sin( $lonDistance / 2 ) ** 2;
+		$c = 2 * atan2( sqrt( $a ), sqrt( 1 - $a ) );
+
+		return $earthRadiusKm * $c;
+	}
+
+
+	/**
 	 * Get all address components
 	 *
 	 * @return array|null

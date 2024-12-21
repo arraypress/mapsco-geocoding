@@ -33,6 +33,7 @@ declare( strict_types=1 );
 
 namespace ArrayPress\MapsCo\Geocoding;
 
+use ArrayPress\MapsCo\Geocoding\Traits\Parameters;
 use WP_Error;
 
 class Client {

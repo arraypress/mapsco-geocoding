@@ -11,7 +11,7 @@
 
 declare( strict_types=1 );
 
-namespace ArrayPress\MapsCo\Geocoding;
+namespace ArrayPress\MapsCo\Geocoding\Traits;
 
 /**
  * Trait Parameters
