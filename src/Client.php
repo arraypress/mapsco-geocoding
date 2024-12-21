@@ -52,11 +52,7 @@ class Client {
 	 * @param bool   $enable_cache     Whether to enable caching (default: true)
 	 * @param int    $cache_expiration Cache expiration in seconds (default: 1 week)
 	 */
-	public function __construct(
-		string $api_key,
-		bool $enable_cache = true,
-		int $cache_expiration = WEEK_IN_SECONDS
-	) {
+	public function __construct( string $api_key, bool $enable_cache = true, int $cache_expiration = WEEK_IN_SECONDS ) {
 		$this->set_api_key( $api_key );
 		$this->set_cache_enabled( $enable_cache );
 		$this->set_cache_expiration( $cache_expiration );
