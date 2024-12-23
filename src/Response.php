@@ -35,6 +35,17 @@ class Response {
 	];
 
 	/**
+	 * Available distance units and their conversion factors from kilometers
+	 */
+	private const DISTANCE_UNITS = [
+		'km' => 1,
+		'm'  => 1000,
+		'mi' => 0.621371,
+		'ft' => 3280.84,
+		'yd' => 1093.61
+	];
+
+	/**
 	 * Initialize the Location object
 	 *
 	 * @param array $data Raw location data from the API
@@ -258,12 +269,33 @@ class Response {
 		return isset( $this->data['boundingbox'] ) && is_array( $this->data['boundingbox'] );
 	}
 
+
 	/**
-	 * Get the bounding box dimensions in kilometers
+	 * Convert a distance from kilometers to specified unit
 	 *
-	 * @return array|null Width and height in kilometers, or null if bounding box is not available
+	 * @param float  $distanceKm Distance in kilometers
+	 * @param string $unit       Desired unit (km, m, mi, ft, yd)
+	 *
+	 * @return float Converted distance
+	 * @throws \InvalidArgumentException If invalid unit specified
 	 */
-	public function get_bounding_box_dimensions(): ?array {
+	private function convert_distance( float $distanceKm, string $unit = 'km' ): float {
+		if ( ! isset( self::DISTANCE_UNITS[ $unit ] ) ) {
+			throw new \InvalidArgumentException( 'Invalid distance unit specified' );
+		}
+
+		return $distanceKm * self::DISTANCE_UNITS[ $unit ];
+	}
+
+	/**
+	 * Get the bounding box dimensions in specified unit
+	 *
+	 * @param string $unit Unit of measurement (km, m, mi, ft, yd)
+	 *
+	 * @return array|null Width and height in specified unit, or null if bounding box not available
+	 * @throws \InvalidArgumentException If invalid unit specified
+	 */
+	public function get_bounding_box_dimensions( string $unit = 'km' ): ?array {
 		$box = $this->get_bounding_box();
 		if ( ! $box ) {
 			return null;
@@ -279,17 +311,21 @@ class Response {
 		$heightKm = $earthRadiusKm * $latDistance;
 
 		return [
-			'width_km'  => abs( $widthKm ),
-			'height_km' => abs( $heightKm ),
+			'width'  => $this->convert_distance( abs( $widthKm ), $unit ),
+			'height' => $this->convert_distance( abs( $heightKm ), $unit ),
+			'unit'   => $unit
 		];
 	}
 
 	/**
-	 * Get the approximate radius of the bounding box in kilometers
+	 * Get the approximate radius of the bounding box in specified unit
 	 *
-	 * @return float|null Radius in kilometers, or null if bounding box is not available
+	 * @param string $unit Unit of measurement (km, m, mi, ft, yd)
+	 *
+	 * @return array|null Radius in specified unit and unit type, or null if bounding box not available
+	 * @throws \InvalidArgumentException If invalid unit specified
 	 */
-	public function get_bounding_box_radius(): ?float {
+	public function get_bounding_box_radius( string $unit = 'km' ): ?array {
 		$box = $this->get_bounding_box();
 		if ( ! $box ) {
 			return null;
@@ -310,9 +346,22 @@ class Response {
 		     cos( deg2rad( $latCenter ) ) * cos( deg2rad( $cornerLat ) ) * sin( $lonDistance / 2 ) ** 2;
 		$c = 2 * atan2( sqrt( $a ), sqrt( 1 - $a ) );
 
-		return $earthRadiusKm * $c;
+		$radiusKm = $earthRadiusKm * $c;
+
+		return [
+			'radius' => $this->convert_distance( $radiusKm, $unit ),
+			'unit'   => $unit
+		];
 	}
 
+	/**
+	 * Get all available distance units
+	 *
+	 * @return array Array of supported distance units
+	 */
+	public function get_available_distance_units(): array {
+		return array_keys( self::DISTANCE_UNITS );
+	}
 
 	/**
 	 * Get all address components
